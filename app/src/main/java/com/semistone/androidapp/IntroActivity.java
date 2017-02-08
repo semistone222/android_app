@@ -11,7 +11,7 @@ import java.util.List;
 
 public class IntroActivity extends OnboarderActivity {
 
-    List<OnboarderPage> onboarderPages;
+    private List<OnboarderPage> onboarderPages;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

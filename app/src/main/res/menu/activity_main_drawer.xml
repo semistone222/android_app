@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_donate"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Donate" />
+            android:title="@string/nav_donate_title" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_recent_history"
-            android:title="History" />
+            android:title="@string/nav_history_title" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="@string/nav_settings_title" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_about"
-            android:title="About" />
+            android:title="@string/nav_about_title" />
     </group>
 
     <item android:title="Communicate">
@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/nav_share_title" />
         </menu>
     </item>
 
