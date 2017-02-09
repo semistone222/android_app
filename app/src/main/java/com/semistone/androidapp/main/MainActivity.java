@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
                 .placeholder(R.drawable.ic_face_black_24dp)
                 .error(R.drawable.ic_report_black_24dp)
                 .thumbnail(0.1f)
+                .override(150, 150)
                 .into((ImageView) mNavHeader.findViewById(R.id.iv_user_image));
     }
 
