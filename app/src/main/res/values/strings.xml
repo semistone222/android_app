@@ -32,8 +32,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--login-->
-    <string name="facebook_app_id">389316754760661</string>
+    <string name="facebook_app_id" translatable="false">389316754760661</string>
     <string name="title_activity_settings">Settings</string>
     <string name="facebook_login">Log in with Facebook</string>
     <string name="google_login">Log in with Google</string>
+
+    <!--activity-->
+    <string name="title_activity_history">History</string>
 </resources>
