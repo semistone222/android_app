@@ -1,8 +1,9 @@
-package com.semistone.androidapp;
+package com.semistone.androidapp.main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,35 +13,74 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.semistone.androidapp.R;
+import com.semistone.androidapp.data.User;
+import com.semistone.androidapp.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    protected Toolbar mToolbar;
 
     @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawer;
+    protected DrawerLayout mDrawer;
+
+    @BindView(R.id.nav_view)
+    protected NavigationView mNavigationView;
+
+    private Realm mRealm;
+
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // ButterKnife
         ButterKnife.bind(this);
 
+        // Realm
+        Realm.init(this);
+        mRealm = Realm.getDefaultInstance();
+        mUser = mRealm.where(User.class).findFirst();
+
+        // Toolbar
         setSupportActionBar(mToolbar);
 
+        // Toggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        // NavigationView
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        // NavigationHeader
+        View mNavHeader = mNavigationView.inflateHeaderView(R.layout.nav_header_main);
+
+        ((TextView) mNavHeader.findViewById(R.id.tv_user_name)).setText(mUser.getName());
+        ((TextView) mNavHeader.findViewById(R.id.tv_user_email)).setText(mUser.getEmail());
+        Glide.with(this)
+                .load("https://graph.facebook.com/" + mUser.getId() + "/picture?type=large")
+                .bitmapTransform(new CropCircleTransformation(this))
+                .placeholder(R.drawable.ic_face_black_24dp)
+                .error(R.drawable.ic_report_black_24dp)
+                .thumbnail(0.1f)
+                .override(125, 125)
+                .into((ImageView) mNavHeader.findViewById(R.id.iv_user_image));
     }
 
     @OnClick(R.id.fab)
@@ -69,6 +109,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            // test
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
 
@@ -95,5 +137,11 @@ public class MainActivity extends AppCompatActivity
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRealm.close();
     }
 }
