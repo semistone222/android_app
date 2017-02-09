@@ -1,6 +1,7 @@
 package com.semistone.androidapp.login;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     // TODO: 2017-02-09
     @OnClick(R.id.google_login)
     void onClickGoogleLogin(View view) {
-        Toast.makeText(this, "NOT YET", Toast.LENGTH_SHORT).show();
+        Snackbar.make(view, "Coming soon.", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.facebook_login)
@@ -116,12 +117,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(), "취소", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "login canceled.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "login error.", Toast.LENGTH_SHORT).show();
             }
         });
     }

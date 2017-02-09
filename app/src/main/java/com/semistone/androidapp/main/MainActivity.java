@@ -3,7 +3,6 @@ package com.semistone.androidapp.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity
                 .placeholder(R.drawable.ic_face_black_24dp)
                 .error(R.drawable.ic_report_black_24dp)
                 .thumbnail(0.1f)
-                .override(125, 125)
                 .into((ImageView) mNavHeader.findViewById(R.id.iv_user_image));
     }
 

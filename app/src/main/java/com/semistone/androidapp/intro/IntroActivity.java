@@ -2,6 +2,7 @@ package com.semistone.androidapp.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.chyrta.onboarder.OnboarderActivity;
 import com.chyrta.onboarder.OnboarderPage;
@@ -43,6 +44,8 @@ public class IntroActivity extends OnboarderActivity {
 
         setOnboardPagesReady(onboarderPages);
 
+        setDividerVisibility(View.GONE);
+        shouldUseFloatingActionButton(true);
     }
 
     @Override
