@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         // Realm
-        Realm.init(this);
         mRealm = Realm.getDefaultInstance();
         mUser = mRealm.where(User.class).findFirst();
 

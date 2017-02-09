@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
-        Realm.init(this);
         mRealm = Realm.getDefaultInstance();
 
         if (mRealm.where(User.class).findAll().size() != 0) {
@@ -76,8 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
-        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        LoginManager loginManager = LoginManager.getInstance();
+        loginManager.logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+        loginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
 
