@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.semistone.androidapp.R;
 import com.semistone.androidapp.data.History;
 
+import java.text.SimpleDateFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.OrderedRealmCollection;
@@ -35,14 +37,22 @@ public class HistoryAdapter extends RealmRecyclerViewAdapter<History, HistoryAda
     public void onBindViewHolder(Holder holder, int position) {
         History history = getData().get(position);
         holder.data = history;
-
-        holder.tvPoint.setText(String.valueOf(history.getPoint()));
-        holder.tvDonateDate.setText(String.valueOf(history.getDonateDate()));
+        holder.tvCount.setText(String.valueOf(getItemCount() - position));
+        holder.tvBeneficiary.setText(history.getBeneficiary());
+        long donateDate = history.getDonateDate();
+        String donateDateStr = (new SimpleDateFormat("yy/MM/dd hh:mm")).format(donateDate);
+        holder.tvDonateDate.setText(donateDateStr);
+        holder.tvPoint.setText(String.valueOf(history.getPoint()) + "p");
         holder.itemView.setTag(history.getHistoryId());
     }
 
     class Holder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.tv_count)
+        protected TextView tvCount;
+
+        @BindView(R.id.tv_beneficiary)
+        protected TextView tvBeneficiary;
 
         @BindView(R.id.tv_donate_date)
         protected TextView tvDonateDate;

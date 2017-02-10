@@ -39,4 +39,6 @@
 
     <!--activity-->
     <string name="title_activity_history">History</string>
+
+    <string name="message_history">These are records you donated.</string>
 </resources>

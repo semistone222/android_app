@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.Sort;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -41,25 +42,29 @@ public class HistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Realm.init(this);
         mRealm = Realm.getDefaultInstance();
 
+        String[] sortField = {History.DONATE_DATE};
+        Sort sort[] = {Sort.DESCENDING};
         mRvHistory.setLayoutManager(new LinearLayoutManager(this));
-        mRvHistory.setAdapter(new HistoryAdapter(this, mRealm.where(History.class).findAll()));
+        mRvHistory.setAdapter(new HistoryAdapter(this, mRealm.where(History.class).findAllSorted(sortField, sort)));
         mRvHistory.setHasFixedSize(true);
         mRvHistory.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
-    // test
+
     @OnClick(R.id.fab)
     void onClickFab(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view, R.string.message_history, Snackbar.LENGTH_LONG).show();
+
+        // test : fake data
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 History history = mRealm.createObject(History.class, History.getNextKey(mRealm));
                 history.setDonateDate(System.currentTimeMillis());
                 history.setPoint((int) (Math.random() * 100));
+                history.setBeneficiary(((char) ('A' + (int) (Math.random() * 26))) + "");
             }
         });
     }
