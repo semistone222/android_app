@@ -85,14 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
 
-                        // get user info from facebook
                         String id = object.optString("id");
                         String name = object.optString("name");
                         String email = object.optString("email");
                         String accessToken = loginResult.getAccessToken().getToken();
                         String type = "facebook";
 
-                        // save user to realm
                         mRealm.beginTransaction();
                         User user = mRealm.createObject(User.class, id);
                         user.setName(name);
@@ -104,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
                         // test
                         tv_test.setText(user.toString());
 
-                        /* start main activity */
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
