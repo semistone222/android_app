@@ -36,4 +36,8 @@
     <string name="title_activity_settings">Settings</string>
     <string name="facebook_login">Log in with Facebook</string>
     <string name="google_login">Log in with Google</string>
+
+    <!--toast messages-->
+    <string name="login_canceled">login canceled.</string>
+    <string name="login_error">login error.</string>
 </resources>
