@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
+
+        <!--todo : 기부 단체 명도 써야한다. -->
 
         <TextView
             android:id="@+id/tv_donate_date"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="2012. 01. 01" />
+            android:gravity="center"
+            android:layout_margin="@dimen/text_padding"
+            tools:text="2012. 01. 01" />
 
         <TextView
             android:id="@+id/tv_point"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="123p" />
+            android:gravity="center"
+            android:layout_margin="@dimen/text_padding"
+            tools:text="23p" />
 
     </RelativeLayout>
 </LinearLayout>

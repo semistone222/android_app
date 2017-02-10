@@ -47,9 +47,10 @@ public class HistoryActivity extends AppCompatActivity {
         mRvHistory.setLayoutManager(new LinearLayoutManager(this));
         mRvHistory.setAdapter(new HistoryAdapter(this, mRealm.where(History.class).findAll()));
         mRvHistory.setHasFixedSize(true);
-        mRvHistory.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        mRvHistory.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
+    // test
     @OnClick(R.id.fab)
     void onClickFab(View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).show();
