@@ -41,4 +41,9 @@
     <string name="title_activity_history">History</string>
 
     <string name="message_history">These are records you donated.</string>
+
+    <string name="pref_notification_key" translatable="false">notification</string>
+
+    <string name="encourage_donation_notification_title">Time\'s up!</string>
+    <string name="encourage_donation_notification_body">Are you ready to Donate.ly?</string>
 </resources>
