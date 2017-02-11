@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.semistone.androidapp.R;
-import com.semistone.androidapp.data.History;
 import com.semistone.androidapp.data.User;
 import com.semistone.androidapp.history.HistoryActivity;
 import com.semistone.androidapp.login.LoginActivity;
@@ -49,27 +48,20 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // ButterKnife
         ButterKnife.bind(this);
 
-        // Realm
-        Realm.init(this);
         mRealm = Realm.getDefaultInstance();
         mUser = mRealm.where(User.class).findFirst();
 
-        // Toolbar
         setSupportActionBar(mToolbar);
 
-        // Toggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        // NavigationView
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        // NavigationHeader
         View mNavHeader = mNavigationView.inflateHeaderView(R.layout.nav_header_main);
 
         ((TextView) mNavHeader.findViewById(R.id.tv_user_name)).setText(mUser.getName());

@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
-        Realm.init(this);
         mRealm = Realm.getDefaultInstance();
 
         if (mRealm.where(User.class).findAll().size() != 0) {
@@ -76,8 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
-        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        LoginManager loginManager = LoginManager.getInstance();
+        loginManager.logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
+        loginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
 
@@ -85,14 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
 
-                        // get user info from facebook
                         String id = object.optString("id");
                         String name = object.optString("name");
                         String email = object.optString("email");
                         String accessToken = loginResult.getAccessToken().getToken();
                         String type = "facebook";
 
-                        // save user to realm
                         mRealm.beginTransaction();
                         User user = mRealm.createObject(User.class, id);
                         user.setName(name);
@@ -104,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
                         // test
                         tv_test.setText(user.toString());
 
-                        /* start main activity */
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
@@ -117,12 +114,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(), "login canceled.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.login_canceled, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(), "login error.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.login_error, Toast.LENGTH_SHORT).show();
             }
         });
     }
