@@ -17,7 +17,6 @@ public class BootService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             boolean isNotificationOn = sharedPreferences.getBoolean(getString(R.string.pref_notification_key), getResources().getBoolean(R.bool.pref_notification_default));
 

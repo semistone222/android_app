@@ -19,6 +19,7 @@
         <activity
             android:name=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +31,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:theme="@style/AppTheme.NoTitle" />
+
         <activity
             android:name=".history.HistoryActivity"
             android:label="@string/title_activity_history"
@@ -50,6 +52,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".background.NotificationReceiver"
             android:process=":remote" />

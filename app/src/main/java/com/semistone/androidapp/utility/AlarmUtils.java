@@ -12,7 +12,6 @@ import java.util.Calendar;
  */
 
 public class AlarmUtils {
-
     public final static long ONE_DAY = 1000 * 60 * 60 * 24;
     public final static int NOTIFY_EVERY_DAY_ID = 222;
 

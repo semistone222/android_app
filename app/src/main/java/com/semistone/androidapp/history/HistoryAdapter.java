@@ -23,6 +23,8 @@ import io.realm.RealmRecyclerViewAdapter;
 
 public class HistoryAdapter extends RealmRecyclerViewAdapter<History, HistoryAdapter.Holder> {
 
+    private final static String DATE_FORMAT = "yy/MM/dd hh:mm";
+
     public HistoryAdapter(Context context, OrderedRealmCollection<History> data) {
         super(context, data, true);
     }
@@ -40,14 +42,13 @@ public class HistoryAdapter extends RealmRecyclerViewAdapter<History, HistoryAda
         holder.tvCount.setText(String.valueOf(getItemCount() - position));
         holder.tvBeneficiary.setText(history.getBeneficiary());
         long donateDate = history.getDonateDate();
-        String donateDateStr = (new SimpleDateFormat("yy/MM/dd hh:mm")).format(donateDate);
+        String donateDateStr = (new SimpleDateFormat(DATE_FORMAT)).format(donateDate);
         holder.tvDonateDate.setText(donateDateStr);
         holder.tvPoint.setText(String.valueOf(history.getPoint()) + "p");
         holder.itemView.setTag(history.getHistoryId());
     }
 
     class Holder extends RecyclerView.ViewHolder {
-
         @BindView(R.id.tv_count)
         protected TextView tvCount;
 

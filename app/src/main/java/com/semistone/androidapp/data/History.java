@@ -9,7 +9,6 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class History extends RealmObject {
-
     public static final String ID = "historyId";
     public static final String DONATE_DATE = "donateDate";
 
