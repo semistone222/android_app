@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.semistone.donately.R;
 import com.semistone.donately.data.History;
@@ -17,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -26,6 +28,9 @@ public class HistoryActivity extends AppCompatActivity {
 
     @BindView(R.id.rv_history)
     protected RecyclerView mRvHistory;
+
+    @BindView(R.id.tv_history_empty)
+    protected TextView tvHistoryEmpty;
 
     private Realm mRealm;
 
@@ -47,26 +52,22 @@ public class HistoryActivity extends AppCompatActivity {
         String[] sortField = {History.DONATE_DATE};
         Sort sort[] = {Sort.DESCENDING};
         mRvHistory.setLayoutManager(new LinearLayoutManager(this));
-        mRvHistory.setAdapter(new HistoryAdapter(this, mRealm.where(History.class).findAllSorted(sortField, sort)));
+        RealmResults<History> results = mRealm.where(History.class).findAllSorted(sortField, sort);
+        mRvHistory.setAdapter(new HistoryAdapter(this, results));
         mRvHistory.setHasFixedSize(true);
         mRvHistory.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        if(results.size() > 0) {
+            tvHistoryEmpty.setVisibility(View.GONE);
+        } else {
+            tvHistoryEmpty.setVisibility(View.VISIBLE);
+        }
     }
 
 
     @OnClick(R.id.fab)
     void onClickFab(View view) {
         Snackbar.make(view, R.string.message_history, Snackbar.LENGTH_LONG).show();
-
-        // test : fake data
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                History history = mRealm.createObject(History.class, History.getNextKey(mRealm));
-                history.setDonateDate(System.currentTimeMillis());
-                history.setPoint((int) (Math.random() * 100));
-                history.setBeneficiary(((char) ('A' + (int) (Math.random() * 26))) + "");
-            }
-        });
     }
 
     @Override
